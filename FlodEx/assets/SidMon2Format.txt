@@ -1,0 +1,191 @@
+SidMon II (C) 1989/1991 Turtle Byte
+Coding by Michael Kleps
+Module Description by Christian Corti
+
+  0000/$0000.w  midi mode
+  0002/$0002.b  song length
+  0003/$0003.b  song speed
+  0004/$0004.b  number of samples (multiplied by 64/$40 bytes)
+  0006/$0006.l  length of header text (28/$1c bytes)
+  0010/$000a.l  song duration length (4 bytes)
+  0014/$000e.l  patterns table length
+  0018/$0012.l  note transpose table length
+  0022/$0016.l  instrument transpose table length
+  0026/$001a.l  instrument headers length (see instrument header description)
+  0030/$001e.l  waveform lists length
+  0034/$0022.l  arpeggio lists length
+  0038/$0026.l  vibrato lists length
+  0042/$002a.l  waveforms headers length (sample headers)
+  0046/$002e.l  pattern pointers table length
+  0050/$0032.l  patterns total length
+  0052/$0036.l  waveforms (samples) data total length
+  0056/$003a.b  header text (* 28/$1c bytes)
+  0086/$0056.l  song duration (no idea about the time unit, could be something midi related)
+
+  0090/$005a.b  patterns table (4 bytes * song length)
+                pattern number for channel 1
+                pattern number for channel 2
+                pattern number for channel 3
+                pattern number for channel 4
+
+  xxxx/$xxxx.b  note transpose table (4 bytes * song length)
+                note transpose for channel 1
+                note transpose for channel 2
+                note transpose for channel 3
+                note transpose for channel 4
+
+  xxxx/$xxxx.b  instrument transpose table (4 bytes * song length)
+                instrument transpose for channel 1
+                instrument transpose for channel 2
+                instrument transpose for channel 3
+                instrument transpose for channel 4
+
+  xxxx/$xxxx.b  instrument headers (number of instruments * 32/$20 bytes)
+
+  xxxx/$xxxx.b  waveform lists (number of waveform lists * 16/$10 bytes)
+
+  xxxx/$xxxx.b  arpeggio lists (number of arpeggio lists * 16/$10 bytes)
+
+  xxxx/$xxxx.b  vibrato lists (number of vibrato lists * 16/$10 bytes)
+
+  xxxx/$xxxx.b  waveform (sample) headers (number of waveforms * 64/$40 bytes)
+
+  xxxx/$xxxx.w  pattern pointers table (number of patterns * 2 bytes)
+
+  xxxx/$xxxx.b  pattern commands (length is specified in patterns total length)
+
+  xxxx/$xxxx.b  waveforms (samples) data (number of waveforms * waveform length)
+
+  Max song length            = 255 (1-255)
+  Max song speed             = 255 (1-255)
+  Max number of patterns     = 256 (0-255)
+  Note transpose range       = -71 to +71
+  Instrument transpose range = -63 to +63
+
+
+Instrument Header Description (32/$20 bytes) [all values range 0-255 unless specified]:
+  00/$00.b  waveform list number (0-63)
+  01/$01.b  waveform list length (0-15)
+  02/$02.b  waveform list speed  (0-31)
+  03/$03.b  waveform list delay
+  04/$04.b  arpeggio list number (0-63)
+  05/$05.b  arpeggio list length (0-15)
+  06/$06.b  arpeggio list speed  (0-31)
+  07/$07.b  arpeggio list delay
+  08/$08.b  vibrato list number  (0-63)
+  09/$09.b  vibrato list length  (0-15)
+  10/$0a.b  vibrato list speed   (0-31)
+  11/$0b.b  vibrato list delay
+  12/$0c.b  pitchbending         (-72 to +72)
+  13/$0d.b  pitchbend delay
+  14/$0e.b  midi instrument      (0-127)
+  15/$0f.b  midi velocity        (0-127)
+  16/$10.b  attack volume
+  17/$11.b  attack speed
+  18/$12.b  decay volume
+  19/$13.b  decay speed
+  20/$14.b  sustain time
+  21/$15.b  release volume
+  22/$16.b  release speed
+  23/$17.b  midi key shift       (-127 to +127)
+  24/$18.b  midi channel         (1-16)
+  25/$19.b  unused
+  26/$1a.b  unused
+  27/$1b.b  unused
+  28/$1c.b  unused
+  29/$1d.b  unused
+  30/$1e.b  unused
+  31/$1f.b  unused
+
+  Max number of instruments = 64 (1-64)
+
+Waveform (Sample) Header Description (64/$40 bytes):
+  00/$00.l  waveform data address (get calculated in the replay routine)
+  04/$04.w  length (in words)
+  06/$06.w  repeat offset (in words)
+  08/$08.w  repeat length (in words)
+  10/$0a.w  negation start offset (in words)
+  12/$0c.w  negation length (in words)
+  14/$0e.w  negation speed (0-31)
+  16/$10.w  negation direction (0=none, 1=right, 2=left, 3=both)
+  18/$12.w  negation offset
+  20/$14.l  negation step
+  24/$18.w  negation counter
+  26/$1a.w  negation toggle (to avoid doing multiple negation if the sample is used in several channels)
+  28/$1c.w  unused
+  30/$1e.w  unused
+  32/$20.b  waveform name (* 32/$20 bytes) [only 21 chars can be entered in the program]
+
+  Max number of waveforms = 64 (0-63)
+
+
+Pattern Command Description:
+  Pattern commands are read byte by byte and decoded as needed.
+
+  Byte value:
+    $00    : no note but slide, next 2 bytes are fx and fx info
+    $01-$6f: simple note, next byte can be either an instrument (< 112),
+             a empty notes counter (negative) or
+             a fx (>= 112), in the last case the next byte is fx info
+    $70-$7f: value is fx, next byte is fx info
+    $80-$ff: value is a empty notes counter
+
+  Pattern Length = 64 Commands (0-63)
+
+
+Effects:
+  $00/ARP   arpeggio
+  $01/PUP   pitch up
+  $02/PDO   pitch down
+  $03/VUP   volume up
+  $04/VDO   volume down
+  $05/SAC   set adsr attack
+  $06/LEN   set pattern length
+  $07/SMV   set midi velocity (not used outside of the tracker)
+  $08/XXX   unused
+  $09/XXX   unused
+  $0a/XXX   unused
+  $0b/XXX   unused
+  $0c/VOL   set volume
+  $0d/XXX   unused
+  $0e/XXX   unused
+  $0f/SPD   set speed
+
+
+
+
+SidMon II Replay Routine
+Voice Structure Description by Christian Corti
+
+  00/$00.l  position and transposes offset
+  04/$04.l  sample start
+  08/$08.w  sample length
+  10/$0a.w  period
+  12/$0c.w  volume
+  14/$0e.w  dma-enable bit
+  16/$10.w  channel register offset
+  18/$12.w  adsr status
+  20/$14.w  sustain counter
+  22/$16.l  instrument address
+  26/$1a.l  sample repeat start
+  30/$1e.w  sample repeat length
+  32/$20.w  original note
+  34/$22.w  waveform list delay counter
+  36/$24.w  waveform list offset
+  38/$26.w  arpeggio list delay counter
+  40/$28.w  arpeggio list offset
+  42/$2a.w  vibrato list delay counter
+  44/$2c.w  vibrato list offset
+  46/$2e.w  current note
+  48/$30.w  current instrument
+  50/$32.w  current fx
+  52/$34.w  current fx info
+  54/$36.w  pitchbend counter
+  56/$38.w  instrument transpose
+  58/$3a.w  pitchbend value
+  60/$3c.w  note slide to
+  62/$3e.w  note slide speed
+  64/$40.l  note address
+  68/$44.w  empty notes counter
+  70/$46.w  note transpose
+  72/$48.w  current waveform

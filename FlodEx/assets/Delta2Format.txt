@@ -1,0 +1,136 @@
+Delta Music 2.0 (C) 1990 Barricade Software
+Coding by Bent "Shogun" Nielsen
+Module Description by Christian Corti
+
+  4042/$0fca.w  track 1 restart
+  4044/$0fcc.w  track 1 length
+  4046/$0fce.w  track 2 restart
+  4048/$0fd0.w  track 2 length
+  4050/$0fd2.w  track 3 restart
+  4052/$0fd4.w  track 3 length
+  4054/$0fd6.w  track 4 restart
+  4056/$0fd8.w  track 4 length
+
+  4058/$0fda.b  tracks data (* track 1+2+3+4 length bytes)
+
+  xxxx/$xxxx.l  block data length
+
+  xxxx/$xxxx.b  block data (* block data length bytes)
+
+  xxxx/$xxxx.b  instruments offset table (256/$100 bytes)
+
+  xxxx/$xxxx.b  instruments header table
+
+  xxxx/$xxxx.l  waveforms table length
+
+  xxxx/$xxxx.b  waveforms data (* waveforms table length) [1st waveform is noise]
+
+  xxxx/$xxxx.b  samples offset table (96 bytes)
+
+  xxxx/$xxxx.b  samples data
+
+Track Format (2 bytes)
+  00/$00.b  block
+  01/$01.b  note transpose
+
+Block Format
+  1 block = 64 step
+
+Step Format
+  00/$00.b  note
+  01/$01.b  instrument
+  02/$02.b  effect number
+  03/$03.b  effect data
+
+Instrument Format (88/$58 bytes)
+  00/$00.w  length
+  02/$02.w  repeat
+  04/$04.w  repeat length
+  06/$06.b  volume table (* 15 bytes)
+  21/$15.b  vibrato table (* 15 bytes)
+  36/$24.w  bendrate
+  38/$26.b  instrument type, synth/sample (synth >= 0, sample < 0)
+  39/$27.b  sample number/waveform speed
+  40/$28.b  waveform table (* 48 bytes)
+
+Volume Table Format (15/$0f bytes)
+  00/$00  rate    (slide speed to chosen level)
+  01/$01  level   (the volume to slide to)
+  02/$02  sustain (how long to hold this volume before next step)
+  ...
+
+Vibrato Table Format (15/$0f bytes)
+  00/$00  step    (how big steps to take each time)
+  01/$01  length  (how many steps to take, both + and -)
+  02/$02  sustain (how long to wait before next step)
+  ...
+
+Effects:
+  00/$00  no effect
+  01/$01  play speed
+  02/$02  led filter
+  03/$03  bendrate up
+  04/$04  bendrate down
+  05/$05  portamento
+  06/$06  max channel volume
+  07/$07  max song volume
+  08/$08  arpeggio
+
+
+Delta Music 2.0 Replay Routine
+Structures Description by Christian Corti
+
+Voices:
+  00/$00.l  amiga channel base address ($dff0x0)
+  04/$04.w  dma bit
+  06/$06.l  instruments header address
+  10/$0a.l  track address
+  14/$0e.l  block address
+  18/$12.w  track position
+  20/$14.w  block position
+  22/$16.b  sample number/waveform counter
+  23/$17.b  waveform step
+  24/$18.w  final period
+  26/$1a.w  period
+  28/$1c.b  note
+  29/$1d.b  channel volume
+  30/$1e.w  bendrate
+  32/$20.w  volume
+  34/$22.w  volume step
+  36/$24.b  volume sustain
+  37/$25.b  portamento speed
+  38/$26.b  unused
+  39/$27.b  vibrato direction (0 = +, -1 = -)
+  40/$28.w  vibrato period
+  42/$2a.b  vibrato length
+  43/$2b.b  note transpose
+  44/$2c.l  arpeggio table offset
+  48/$30.w  arpeggio step
+  50/$32.b  replay mode (0 = sound fx, 1 = song)
+  51/$33.b  instrument type (synth >= 0, sample < 0)
+  52/$34.b  vibrato step
+  53/$35.b  vibrato sustain
+  54/$36.w  track restart
+  56/$38/w  track length
+
+Song Data:
+  00/$00.w  temp dmacon
+  02/$02.l  instruments header address
+  06/$06.l  instruments offset table
+  10/$0a.l  track 1 address
+  14/$0e.l  track 2 address
+  18/$12.l  track 3 address
+  22/$16.l  track 4 address
+  26/$1a.l  block data address
+  30/$1e.l  waveforms table address
+  34/$22.l  samples data address
+  38/$26.l  samples offset table (64 bytes = samples address, 32 bytes = samples offset) ???
+  42/$2a.l  last noise value
+  46/$2e.b  song volume
+  47/$2f.b  replay speed (default = 5)
+  48/$30.b  speed counter
+  49/$31.b  play mode (0 = normal, 1 = same track pos, same block pos)
+  50/$32.w  track 1 counter
+  52/$34.w  track 2 counter
+  54/$36.w  track 3 counter
+  56/$38.w  track 4 counter

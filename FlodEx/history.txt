@@ -1,0 +1,44 @@
+FlodEx version 1.3
+
+  2010/01/01
+  Christian Corti
+  Neoart Costa Rica
+
+  E-Mail: flod@neoartcr.com
+
+
+Flash Module Player for the following formats:
+
+  BP SoundMon
+  Delta Music 1.0
+  Delta Music 2.0
+  Digital Mugician
+  Future Composer
+  SidMon
+  SidMon II
+
+
+History:
+
+  version 1.0   2009/12/10
+                first public release.
+
+  version 1.01  2009/12/12
+                fixed stereo separation not working.
+                changed AmigaFilter static constants naming.
+
+  version 1.1   2009/12/17
+                added SidMon II support.
+
+  version 1.2   2009/12/24
+                fixed SidMon II note slide.
+                added Delta Music 1.0 support.
+                added Delta Music 2.0 support.
+
+  version 1.3   2010/01/10
+                fixed amiga filter force not working.
+                fixed Delta Music 2.0 negative period.
+                added Digital Mugician (4 & 7 voices) support.
+
+
+Thanks to Mathew Nolan for all the beta testing :)

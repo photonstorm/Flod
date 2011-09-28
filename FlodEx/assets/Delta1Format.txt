@@ -1,0 +1,138 @@
+Delta Music 1.0 (C) 1989 Barricade Software
+Coding by Bent "Shogun" Nielsen
+Module Description by Christian Corti
+
+  0000/$0000.b  "ALL " id (* 4 bytes)
+  0004/$0004.l  track 1 length
+  0008/$0008.l  track 2 length
+  0012/$000c.l  track 3 length
+  0016/$0010.l  track 4 length
+  0020/$0014.l  block length
+  0024/$0018.l  instrument length (4 bytes * 20)
+
+  0104/$0068.b  tracks (2 bytes * number of tracks)
+
+  xxxx/$xxxx.b  blocks
+
+  xxxx/$xxxx.b  instruments (see instrument format)
+
+  Max sample size 10000 bytes
+
+
+Track Format (2 bytes)
+  00/$00.b  block
+  01/$01.b  note transpose
+  ...
+  xx/$xx.w  -1/$ffff = end of track
+  xx/$xx.w  restart line
+
+Block Format (16 * 4 bytes)
+  1 block = 16 step
+
+Step Format
+  00/$00.b  instrument
+  01/$01.b  note
+  02/$02.b  effect number
+  03/$03.b  effect data
+
+Instrument Format (78/$4e bytes):
+  00/$00.b  attack step
+  01/$01.b  attack delay
+  02/$02.b  decay step
+  03/$03.b  decay delay
+  04/$04.w  sustain
+  06/$06.b  release step
+  07/$07.b  release delay
+  08/$08.b  volume
+  09/$09.b  vibrator wait
+  10/$0a.b  vibrator step
+  11/$0b.b  vibrator length
+  12/$0c.b  bendrate
+  13/$0d.b  portamento
+  14/$0e.b  sample/synthetic
+  15/$0f.b  sound table delay
+  16/$10.b  arpeggio (* 8 bytes)
+  24/$18.w  sound length (if synthetic this is the length of 1 waveform)
+  26/$1a.w  repeat
+  28/$1c.w  repeat length
+  if sample:
+    30/$1e.b  sample data
+  if synthetic:
+    30/$1e.b  sound table (* 48 bytes)
+  78/$4e.b  sound data
+
+Sound Table Format (48/$30 bytes)
+  00/$00.b  speed ($80 + speed, from $80 [fast] to $fe [slow])
+  xx/$xx.b  waveform # (from $00 to $0f, waveform to play)
+  xx/$xx.b  $ff = repeat
+  xx/$xx.b  position to repeat from $00
+
+Effects:
+  00/$00  no effect
+  01/$01  play speed
+  02/$02  note slide up
+  03/$03  note slide down
+  04/$04  led filter
+  05/$05  vibrator wait
+  06/$06  vibrator step
+  07/$07  vibrator length
+  08/$08  bendrate
+  09/$09  portamento
+  10/$0a  volume
+  11/$0b  arpeggio byte 1
+  12/$0c  arpeggio byte 2
+  13/$0d  arpeggio byte 3
+  14/$0e  arpeggio byte 4
+  15/$0f  arpeggio byte 5
+  16/$10  arpeggio byte 6
+  17/$11  arpeggio byte 7
+  18/$12  arpeggio byte 8
+  19/$13  arpeggio byte 1 & 5
+  20/$14  arpeggio byte 2 & 6
+  21/$15  arpeggio byte 3 & 7
+  22/$16  arpeggio byte 4 & 8
+  23/$17  attack step
+  24/$18  attack delay
+  25/$19  decay step
+  26/$1a  decay delay
+  27/$1b  sustain hight byte
+  28/$1c  sustain low byte
+  29/$1d  release step
+  30/$1e  release delay
+
+
+Delta Music 1.0 Replay Routine
+Channel Structure Description by Christian Corti
+
+  00/$00.l  channel hardware pointer
+  04/$04.w  channel dma value ($800x with bit set)
+  06/$06.l  sound data
+  10/$0a.w  frequency (period)
+  12/$0c.l  sound table pointer
+  16/$10.b  sound table counter
+  17/$11.b  sound table delay
+  18/$12.l  track pointer
+  22/$16.w  track counter
+  24/$18.l  block pointer
+  28/$1c.l  block counter
+  32/$20.b  vibrator wait
+  33/$21.b  vibrator length
+  34/$22.b  vibrator position
+  35/$23.b  vibrator length + & - (compare)
+  36/$24.w  vibrator period
+  38/$26.w  old portamento frequency (unused)
+  40/$28.b  frequency data (note)
+  41/$29.b  actual volume
+  42/$2a.b  attack delay
+  43/$2b.b  decay delay
+  44/$2c.w  sustain
+  46/$2e.b  release delay
+  47/$2f.b  play speed (initialized to 1)
+  48/$30.w  bendrate frequency
+  50/$32.b  transpose
+  51/$33.b  status
+  52/$34.b  arpeggio counter
+  53/$35.b  arpeggio data
+  54/$36.b  arpeggio on/off (unused)
+  55/$37.b  effect number
+  56/$38.b  effect data

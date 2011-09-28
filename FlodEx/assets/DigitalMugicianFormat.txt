@@ -1,0 +1,137 @@
+Digital Mugician (C) 1990 Thalamus Software
+Coding by Soft Eyes
+Module Description by Christian Corti
+
+  Example offsets based on the module "A Little Bit of Galway"
+
+  0000/$0000  0024.b  string id                     (" MUGICIAN/SOFTEYES 1990 ")
+  0024/$0018  0001.w  arpeggio data present yes/no
+  0026/$001a  0001.w  patterns #
+  0028/$001c  0008.l  subsongs tracks steps #       (#0 - 7)
+  0060/$003c  0001.l  instruments #
+  0064/$0040  0001.l  wave #
+  0068/$0044  0001.l  samples #
+  0072/$0048  0001.l  arpeggio data offset
+  0076/$004c  0128.b  subsongs headers              (#0 - 7)
+  0204/$00cc  0096.b  subsong #0 tracks
+  0300/$012c  0056.b  subsongs tracks               (#1 - 6 are empty)
+  0356/$0164  0176.b  instruments headers           (instruments # * 16)
+  0532/$0214  2560.b  wave data                     (wave # * 128)
+  3092/$0c14  0000.b  sample headers                (samples # * 32)
+  3092/$0c14  5632.b  patterns data                 (patterns # * 64 * 4)
+  8724/$2214  0000.b  samples data
+  8724/$2214  0256.b  arpeggio data
+
+Subsong Header [16 bytes]
+  00/$00  01.b  song loop   (yes/no)
+  01/$01  01.b  loop track  (0 to song end-1)
+  02/$02  01.b  speed       (1-15)
+  03/$03  01.b  song end    (1-127)
+  04/$04  12.b  title
+
+Track [length * step length * 4 channels]
+  00/$00  02.b  channel 1 step
+  02/$02  02.b  channel 2 step
+  04/$04  02.b  channel 3 step
+  06/$06  02.b  channel 4 step
+  ...
+  Max 128 steps per track (0-127)
+
+Track Step [2 bytes]
+  00/$00  01.b  pattern #       (0-255)
+  01/$01  01.b  note transpose  (0-255)
+
+Pattern [64 * command length]
+  patterns are numbered from 1 to 255
+  pattern 0 is an empty one
+  pattern length can be changed with effect #5
+  Max 64 commands per pattern (0-63)
+
+Pattern Command [4 bytes]
+  00/$00  01.b  note
+  01/$01  01.b  instrument #
+  02/$02  01.b  val 1 (effect #   /pitchbend note)
+  03/$03  01.b  val 2 (effect data/pitchbend speed)
+
+Instrument Header [16 bytes]
+  00/$00  01.b  wave #          (0-31 = synth, 32-63 = sample)
+  01/$01  01.b  wave length     (0-128)
+  02/$02  01.b  volume          (0-31)
+  03/$03  01.b  volume speed    (1-15)
+  04/$04  01.b  arpeggio #      (0-7)
+  05/$05  01.b  pitch           (0-31)
+  06/$06  01.b  effect step     (0-127)
+  07/$07  01.b  pitch delay     (0-255)
+  08/$08  01.b  finetune        (0-15)
+  09/$09  01.b  pitch loop      (0-127)
+  10/$0a  01.b  pitch speed     (0-63)
+  11/$0b  01.b  effect #        (0-15)
+  12/$0c  01.b  source wave 1   (0-31)
+  13/$0d  01.b  source wave 2   (0-31)
+  14/$0e  01.b  effect speed    (0-15)
+  15/$0f  01.b  volume loop     (bit0 = ??? / bit1 = yes/no)
+
+Sample Header [32 bytes]
+  00/$00  01.l  start
+  04/$04  01.l  end
+  08/$08  01.l  loop start
+  12/$0c  20.b  name
+
+Command Effects
+  00  none
+  xx  pitch bend (01-63)
+  64  02 - no effect i
+  65  03 - no volume i
+  66  04 - no effect+volume i
+  67  05 - pattern length (if the length is set to a value lower than the current pattern count it will be ignored until the next step)
+  68  06 - song speed
+  69  07 - led on
+  70  08 - led off
+  71  09 - led rapid
+  72  10 - no dma
+  73  11 - arpeggio change
+  74  12 - note wander
+  75  13 - shuffle
+
+Instrument Effects
+  00  none
+  01  filter
+  02  mixing
+  03  scr left
+  04  scr right
+  05  upsample
+  06  downsample
+  07  negate
+  08  madmix 1
+  09  addition
+  10  filter 2
+  11  morphing
+  12  morph f
+  13  filter 3
+  14  polygate
+  15  colgate
+
+
+Datachx Structure
+  00/$00.w  song #
+  02/$02.w  pattern # (current pattern)
+  04/$04.w  instrument # (-1) (current instrument #)
+  06/$06.w  note (last note)
+  08/$08.w  note transpose (current transpose)
+  10/$0a.w  pitchbend note (end note)
+  12/$0c.w  command val2 (pitch speed)
+  14/$0e.w  command val1 (-62)
+  16/$10.w  final period
+  18/$12.w  finetune
+  20/$14.w  instrument synth/sample
+  22/$16.w  volume step
+  24/$18.w  volume speed (counter)
+  26/$1a.w  arpeggio step
+  28/$1c.w  phase delay (counter)
+  30/$1e.w  phase step
+  32/$20.w  sample header address
+  36/$24.w  volume
+  40/$28.w  instrument effect speed (counter)
+  42/$2a.w  period
+  44/$2c.w  portamento speed
+  46/$2e.w  requested transpose???
