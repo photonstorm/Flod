@@ -8,6 +8,8 @@ Flectrum       version 1.0 - VU meters
    Neoart Costa Rica
    E-Mail: flod@neoartcr.com
 
+Looking for XM Replay? Check out FlodXM: https://github.com/photonstorm/FlodXM
+
 Commercial Use License
 
 Flod/FlodEx was a huge amount of work, and as such if you plan on using it in a commercial SWF the author requests you make a donation (minimum of $5) towards the project. "Commercial" means anything that is going to make money. This includes (but is not limited to): Flash games seeking sponsorship, Flash games with MochiAds / cpmStar / or any other form of advertising, games you will upload to Kongregate or NewGrounds (if it contains their ads API), and all forms of Flash work sold to clients  / publishers.
