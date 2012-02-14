@@ -13,7 +13,8 @@ Flod 3.0 is an AS3 library for replaying a variety of different music file forma
 
 * FastTracker II XM
 * The Ultimate Soundtracker, DOC Soundtracker 9, Master Soundtracker, DOC Soundtracker 2.0
-* Soundtracker 2.3, Soundtracker 2.5, NoiseTracker 1.0, NoiseTracker 1.1, NoiseTracker 2.0
+* Soundtracker 2.3, Soundtracker 2.5
+* NoiseTracker 1.0, NoiseTracker 1.1, NoiseTracker 2.0
 * His Master’s NoiseTracker
 * ProTracker 1.0, ProTracker 1.1, ProTracker 1.2
 * SoundFX 1.0, SoundFX 1.8, SoundFX 1.9, SoundFX 2.0
@@ -24,7 +25,7 @@ Flod 3.0 is an AS3 library for replaying a variety of different music file forma
 * DeltaMusic 1.0
 * DeltaMusic 2.0, Delta Music 2.2
 * Digital Mugician 4 & 7 Voices
-* David Whittaker, this player is in beta and it doesn’t support all the variants out there
+* David Whittaker
 * Atari ST YM Chip (via the FlYM package)
 
 More details can be found at http://www.photonstorm.com/flod
