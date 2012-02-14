@@ -12,7 +12,9 @@ What is it?
 Flod 3.0 is an AS3 library for replaying a variety of different music file formats, including:
 
 * FastTracker II XM
-* The Ultimate Soundtracker, DOC Soundtracker 9, Master Soundtracker, DOC Soundtracker 2.0
+* The Ultimate Soundtracker
+* DOC Soundtracker 9, DOC Soundtracker 2.0
+* Master Soundtracker
 * Soundtracker 2.3, Soundtracker 2.5
 * NoiseTracker 1.0, NoiseTracker 1.1, NoiseTracker 2.0
 * His Master’s NoiseTracker
