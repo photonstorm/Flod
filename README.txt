@@ -11,21 +11,23 @@ What is it?
 
 Flod 3.0 is an AS3 library for replaying a variety of different music file formats, including:
 
-F2Player (FastTracker II XM)
-STPlayer (The Ultimate Soundtracker, DOC Soundtracker 9, Master Soundtracker, DOC Soundtracker 2.0)
-MKPlayer (Soundtracker 2.3, Soundtracker 2.5, NoiseTracker 1.0, NoiseTracker 1.1, NoiseTracker 2.0)
-HMPlayer (His Master’s NoiseTracker)
-PTPlayer (ProTracker 1.0, ProTracker 1.1, ProTracker 1.2)
-FXPlayer (SoundFX 1.0, SoundFX 1.8, SoundFX 1.9, SoundFX 2.0)
-FCPlayer (FutureComposer 1.0, FutureComposer 1.2, FutureComposer 1.3, FutureComposer 1.4)
-S1Player (SidMon)
-S2Player (SidMon II)
-BPPlayer (BP SoundMon 1.0, BP SoundMon 2.0, BP SoundMon 3.0)
-D1Player (DeltaMusic 1.0)
-D2Player (DeltaMusic 2.0, Delta Music 2.2)
-DMPlayer (Digital Mugician 4 & 7 Voices)
-DWPlayer (David Whittaker, this player is in beta and it doesn’t support all the variants out there)
-YMPlayer (Atari ST YM Chip via the FlYM package)
+* FastTracker II XM
+* The Ultimate Soundtracker, DOC Soundtracker 9, Master Soundtracker, DOC Soundtracker 2.0
+* Soundtracker 2.3, Soundtracker 2.5, NoiseTracker 1.0, NoiseTracker 1.1, NoiseTracker 2.0
+* His Master’s NoiseTracker
+* ProTracker 1.0, ProTracker 1.1, ProTracker 1.2
+* SoundFX 1.0, SoundFX 1.8, SoundFX 1.9, SoundFX 2.0
+* FutureComposer 1.0, FutureComposer 1.2, FutureComposer 1.3, FutureComposer 1.4
+* SidMon
+* SidMon II
+* BP SoundMon 1.0, BP SoundMon 2.0, BP SoundMon 3.0
+* DeltaMusic 1.0
+* DeltaMusic 2.0, Delta Music 2.2
+* Digital Mugician 4 & 7 Voices
+* David Whittaker, this player is in beta and it doesn’t support all the variants out there
+* Atari ST YM Chip (via the FlYM package)
+
+More details can be found at http://www.photonstorm.com/flod
 
 Commercial Use License
 
