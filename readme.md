@@ -1,5 +1,15 @@
-Flod 4.0 for ActionScript 3
+Flod 4.1 for ActionScript 3
 ===========================
+
+What's new in 4.1:
+
+* some small modules (less than 2150 bytes) were not recognized as valid
+* His Master's Noisetracker, fixed Peggy Go Home null sample pointer
+* His Master's Noisetracker, fixed Ikke Advanced wrong patterns pointers
+* SoundFX, fixed effect 9
+* SoundFX, added support for untouched Operation Stealth modules
+* Soundtrackers, fixed period overflow, portamento up/down
+* FastTracker II, fixed not working master volume
 
 What's new in 4.0:
 
@@ -52,7 +62,7 @@ This version will replay the following music formats:
 Author
 ------
 
-1st April 2012, Christian Corti
+30th  April 2012, Christian Corti
 Neoart Costa Rica
 E-Mail: flod@neoartcr.com
 
