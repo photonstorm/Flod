@@ -506,8 +506,8 @@ package neoart.flod.futurecomposer {
     }
 
     public static const
-      FUTURECOMP_10 = 1,
-      FUTURECOMP_14 = 2;
+      FUTURECOMP_10:uint = 1,
+      FUTURECOMP_14:uint = 2;
 
     private const
       PERIODS: Vector.<int> = Vector.<int>([

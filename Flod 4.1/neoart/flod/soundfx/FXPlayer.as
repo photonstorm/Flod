@@ -424,10 +424,10 @@ package neoart.flod.soundfx {
     }
 
     public static const
-      SOUNDFX_10 = 1,
-      SOUNDFX_18 = 2,
-      SOUNDFX_19 = 3,
-      SOUNDFX_20 = 4;
+      SOUNDFX_10:uint = 1,
+      SOUNDFX_18:uint = 2,
+      SOUNDFX_19:uint = 3,
+      SOUNDFX_20:uint = 4;
 
     private const
       PERIODS: Vector.<int> = Vector.<int>([

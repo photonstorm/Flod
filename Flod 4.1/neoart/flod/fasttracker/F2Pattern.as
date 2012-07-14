@@ -23,7 +23,7 @@ package neoart.flod.fasttracker {
       length : int,
       size   : int;
 
-    public function F2Pattern(length, channels) {
+    public function F2Pattern(length:int, channels:int) {
       size = length * channels;
       rows = new Vector.<F2Row>(size, true);
       this.length = length;
