@@ -647,13 +647,13 @@ package neoart.flod.sidmon {
     }
 
     private const
-      SIDMON_0FFA = 0x0ffa,
-      SIDMON_1170 = 0x1170,
-      SIDMON_11C6 = 0x11c6,
-      SIDMON_11DC = 0x11dc,
-      SIDMON_11E0 = 0x11e0,
-      SIDMON_125A = 0x125a,
-      SIDMON_1444 = 0x1444,
+      SIDMON_0FFA:uint = 0x0ffa,
+      SIDMON_1170:uint = 0x1170,
+      SIDMON_11C6:uint = 0x11c6,
+      SIDMON_11DC:uint = 0x11dc,
+      SIDMON_11E0:uint = 0x11e0,
+      SIDMON_125A:uint = 0x125a,
+      SIDMON_1444:uint = 0x1444,
 
       EMBEDDED: Vector.<int> = Vector.<int>([1166, 408, 908]),
 

@@ -603,9 +603,9 @@ package neoart.flod.soundmon {
     }
 
     public static const
-      BPSOUNDMON_V1 = 1,
-      BPSOUNDMON_V2 = 2,
-      BPSOUNDMON_V3 = 3;
+      BPSOUNDMON_V1:uint = 1,
+      BPSOUNDMON_V2:uint = 2,
+      BPSOUNDMON_V3:uint = 3;
 
     private const
       PERIODS: Vector.<int> = Vector.<int>([

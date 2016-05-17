@@ -747,8 +747,8 @@ package neoart.flod.digitalmugician {
     }
 
     public static const
-      DIGITALMUG_V1 = 1,
-      DIGITALMUG_V2 = 2;
+      DIGITALMUG_V1:uint = 1,
+      DIGITALMUG_V2:uint = 2;
 
     private const
       PERIODS: Vector.<int> = Vector.<int>([
